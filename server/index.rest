@@ -1,0 +1,32 @@
+GET http://localhost:4000/user
+
+###
+POST http://localhost:4000/mahasiswa
+Content-Type: application/json
+
+{
+    "nama": "Alexander Cristie",
+    "npm": "203569696",
+    "email": "alex@gmail.com",
+    "password": "6969696969"
+}
+###
+POST http://localhost:4000/register
+Content-Type: application/json
+
+{
+    "nama": "Leonardo DiCaprio",
+    "npm": "203567678",
+    "email": "leo@gmail.com",
+    "password": "12345",
+    "confirmPassword": "12345"
+}
+
+###
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "npm": "203567678",
+    "password": "12345"
+}
