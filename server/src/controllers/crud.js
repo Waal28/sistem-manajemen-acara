@@ -1,7 +1,7 @@
 import CrudService from "../service/crud.js";
 
 function getTable(req) {
-  return route.path.split("/")[1];
+  return req.path.split("/")[1];
 }
 
 export default class CrudController {
