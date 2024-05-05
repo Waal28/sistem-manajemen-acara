@@ -136,39 +136,35 @@ const datas = [
 ];
 export default function Benefits() {
   return (
-    <>
-      {/* Container for demo purpose */}
-      <div className="container mt-24 mb-14 mx-auto px-6 ">
-        {/* Section: Design Block */}
-        <section className="text-center">
-          <h2 className="mb-6 text-5xl tracking-tight font-extrabold text-center text-teal-900 dark:text-white">
-            Benefit
-          </h2>
-          <p className="mb-20 text-teal-900 dark:text-white">
-            Beberapa benefit menarik yang bisa didapat dari mengikuti acara di
-            kampus.
-          </p>
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-12 justify-center items-center">
-            {datas.map((data) => (
-              <div className="mb-12 lg:mb-0 shadow-xl h-full" key={data.id}>
-                <div className="block h-full rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-teal-900">
-                  <div className="flex justify-center dark:text-white">
-                    <div className="-mt-8 inline-block rounded-full bg-teal-600 p-4 shadow-md">
-                      {data.icon}
-                    </div>
-                  </div>
-                  <div className="p-6 dark:text-white">
-                    <h5 className="mb-4 text-lg font-semibold">{data.title}</h5>
-                    <p>{data.description}</p>
+    <div className="container -mt-16 pt-36 pb-36 mx-auto px-6">
+      {/* Section: Design Block */}
+      <section className="text-center">
+        <h2 className="mb-6 text-6xl tracking-tight font-extrabold text-center text-teal-900 dark:text-white">
+          Benefit
+        </h2>
+        <p className="mb-20 text-teal-900 dark:text-white">
+          Beberapa benefit menarik yang bisa didapat dari mengikuti acara di
+          kampus.
+        </p>
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-12 justify-center items-center">
+          {datas.map((data) => (
+            <div className="mb-12 lg:mb-0 shadow-xl h-full" key={data.id}>
+              <div className="block h-full rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-teal-900">
+                <div className="flex justify-center dark:text-white">
+                  <div className="-mt-8 inline-block rounded-full bg-teal-600 p-4 shadow-md">
+                    {data.icon}
                   </div>
                 </div>
+                <div className="p-6 dark:text-white">
+                  <h5 className="mb-4 text-lg font-semibold">{data.title}</h5>
+                  <p>{data.description}</p>
+                </div>
               </div>
-            ))}
-          </div>
-        </section>
-        {/* Section: Design Block */}
-      </div>
-      {/* Container for demo purpose */}
-    </>
+            </div>
+          ))}
+        </div>
+      </section>
+      {/* Section: Design Block */}
+    </div>
   );
 }
