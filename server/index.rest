@@ -1,33 +1,26 @@
-GET http://localhost:3001/api
+GET http://localhost:3000/api/mahasiswa
 
 ###
-POST http://localhost:3001/api
+GET http://localhost:3000/api/mahasiswa/rWOyWDA8pqkPlJ7JxGMS
+
+###
+POST http://localhost:3000/api/mahasiswa
 Content-Type: application/json
 
 {
-    "nama": "Alexander Cristie",
-    "npm": "203569696",
-    "email": "alex@gmail.com",
-    "password": "6969696969"
-}
-###
-
-POST http://localhost:4000/register
-Content-Type: application/json
-
-{
-    "nama": "Leonardo DiCaprio",
-    "npm": "203567678",
-    "email": "leo@gmail.com",
-    "password": "12345",
-    "confirmPassword": "12345"
+    "nama": "juni"
 }
 
 ###
-POST http://localhost:4000/login
+PUT http://localhost:3000/api/mahasiswa/rWOyWDA8pqkPlJ7JxGMS
 Content-Type: application/json
 
 {
-    "npm": "203567678",
-    "password": "12345"
+    "nama": "geri",
+    "npm": "203510345",
+    "email": "geri@gmail.com",
+    "password": "2323232323"
 }
+
+###
+DELETE  http://localhost:3000/api/mahasiswa/TVEacZKj44pPYeiudD2n
