@@ -1,18 +1,19 @@
 GET http://localhost:3000/api/mahasiswa
 
 ###
-GET http://localhost:3000/api/mahasiswa/rWOyWDA8pqkPlJ7JxGMS
+GET http://localhost:3000/api/mahasiswa/jUKepgka1YCrLyWKaakX
 
 ###
-POST http://localhost:3000/api/mahasiswa
+POST http://localhost:3000/api/auth/portal-login
 Content-Type: application/json
 
 {
-    "nama": "juni"
+    "npm": "203510555",
+    "password": "1234",
 }
 
 ###
-PUT http://localhost:3000/api/mahasiswa/rWOyWDA8pqkPlJ7JxGMS
+PUT http://localhost:3000/api/mahasiswa/CN3wEug8oFqh3j3AA6NO
 Content-Type: application/json
 
 {
@@ -23,4 +24,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE  http://localhost:3000/api/mahasiswa/TVEacZKj44pPYeiudD2n
+DELETE  http://localhost:3000/api/mahasiswa/57Cu7Dg2H86Z8UfDZYvb
