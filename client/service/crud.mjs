@@ -8,6 +8,8 @@ import {
   collection,
   updateDoc,
   deleteDoc,
+  query,
+  where,
 } from "firebase/firestore";
 
 export default class CrudService {
@@ -79,5 +81,16 @@ export default class CrudService {
         throw new HttpError(error.message, 500);
       }
     }
+  }
+  static async filterData(collect, key, value) {
+    const q = query(collection(db, collect), where(key, "==", value));
+    const snapshot = await getDocs(q);
+    const data = [];
+
+    snapshot.forEach((doc) => {
+      data.push({ id: doc.id, ...doc.data() });
+    });
+
+    return data;
   }
 }

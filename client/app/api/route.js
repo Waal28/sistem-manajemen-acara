@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 export function handleResponse(statusCode, message, result) {
-  console.log(NextResponse);
   if (statusCode === 200) {
     return NextResponse.json(
       {

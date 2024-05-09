@@ -1,6 +1,7 @@
 import CrudService from "@/service/crud.mjs";
 import { handleResponse } from "../../route";
 
+// client/app/api/mahasiswa/[id]/route.js
 export async function GET(req, context) {
   const id = context.params.id;
 

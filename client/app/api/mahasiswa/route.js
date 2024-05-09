@@ -1,6 +1,7 @@
 import CrudService from "@/service/crud.mjs";
 import { handleResponse } from "../route";
 
+// client/app/api/mahasiswa/route.js
 export async function GET() {
   try {
     const result = await CrudService.getAllData("mahasiswa");
