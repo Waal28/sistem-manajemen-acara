@@ -1,17 +1,11 @@
-import HttpError from "@/config/error";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
+import HttpError from "@/config/error";
 import CrudService from "./crud.mjs";
+import { SECRET_KEY } from "@/config/env.mjs";
 
 export class MahasiswaService {
-  static async getAll() {
-    const result = await CrudService.getAllData("mahasiswa");
-    return result;
-  }
-  static async getOne(id) {
-    const result = await CrudService.getOneData("mahasiswa", id);
-    return result;
-  }
   static async register(body) {
     const { nama, npm, prodi, password, confirmPassword } = body;
     const data = await CrudService.filterData("mahasiswa", "npm", npm);
@@ -29,10 +23,16 @@ export class MahasiswaService {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const mhs = { nama, npm, password: hashedPassword };
-    const result = await CrudService.addData("mahasiswa", mhs);
+    const payload = { nama, npm, prodi, password: hashedPassword };
+    const result = await CrudService.addData("mahasiswa", payload);
 
-    return result;
+    const mhs = {
+      id: result.id,
+      nama: result.nama,
+      npm: result.npm,
+      prodi: result.prodi,
+    };
+    return mhs;
   }
 
   static async login(body) {
@@ -47,12 +47,18 @@ export class MahasiswaService {
       throw new HttpError("NPM tidak ditemukan", 400);
     }
 
-    const mhs = data[0];
-    const isPasswordValid = await bcrypt.compare(password, mhs.password);
+    const payload = {
+      id: data[0].id,
+      nama: data[0].nama,
+      npm: data[0].npm,
+      prodi: data[0].prodi,
+    };
+    const isPasswordValid = await bcrypt.compare(password, data[0].password);
     if (!isPasswordValid) {
       throw new HttpError("Password tidak sesuai", 400);
     }
 
-    return mhs;
+    const token = jwt.sign(payload, SECRET_KEY);
+    return token;
   }
 }

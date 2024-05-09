@@ -1,0 +1,34 @@
+### get all acara
+GET http://localhost:3000/api/acara
+
+### get one acara
+GET http://localhost:3000/api/acara/N854siADsq2N8pb03DJ1
+
+### add data acara
+POST http://localhost:3000/api/acara
+Content-Type: application/json
+
+{
+    "judul": "acara bla bla bla",
+    "deskripsi": "ini deskripsi",
+    "kategori": "ini kategori",
+    "prodi": "ini prodi",
+    "waktu_mulai": "ini waktu_mulai",
+    "waktu_selesai": "ini waktu_selesai",
+    "tempat": "ini tempat",
+    "gambar": "ini gambar"
+}
+
+### edit data acara
+PUT http://localhost:3000/api/acara/CN3wEug8oFqh3j3AA6NO
+Content-Type: application/json
+
+{
+    "nama": "geri",
+    "npm": "203510345",
+    "email": "geri@gmail.com",
+    "password": "2323232323"
+}
+
+### delete data acara
+DELETE  http://localhost:3000/api/acara/N854siADsq2N8pb03DJ1

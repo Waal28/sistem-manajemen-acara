@@ -1,10 +1,10 @@
 import CrudService from "@/service/crud.mjs";
 import { handleResponse } from "../route";
 
-// client/app/api/mahasiswa/route.js
+// client/app/api/acara/route.js
 export async function GET() {
   try {
-    const result = await CrudService.getAllData("mahasiswa");
+    const result = await CrudService.getAllData("acara");
 
     return handleResponse(200, "Berhasil menampilkan semua data", result);
   } catch (error) {
@@ -13,13 +13,32 @@ export async function GET() {
 }
 export async function POST(req) {
   const body = await req.json();
-  const { nama, npm, email, password } = body;
-  if (!nama || (!npm && !email && !password)) {
+  const {
+    judul,
+    deskripsi,
+    kategori,
+    prodi,
+    waktu_mulai,
+    waktu_selesai,
+    tempat,
+    gambar,
+  } = body;
+  const checkBody =
+    !judul ||
+    !deskripsi ||
+    !kategori ||
+    !prodi ||
+    !waktu_mulai ||
+    !waktu_selesai ||
+    !tempat ||
+    !gambar;
+
+  if (checkBody) {
     return handleResponse(400, "Data tidak lengkap");
   }
 
   try {
-    const result = await CrudService.addData("mahasiswa", body);
+    const result = await CrudService.addData("acara", body);
 
     return handleResponse(200, "Berhasil menambahkan data", result);
   } catch (error) {
