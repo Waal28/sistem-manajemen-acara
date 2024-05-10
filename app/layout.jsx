@@ -7,6 +7,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { DarkModeProvider } from "@/context/DarkModeContext";
 import { AppStateProvider } from "@/context/AppStateContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function RootLayout({ children }) {
   return (
@@ -16,7 +18,10 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <AppStateProvider>
-          <DarkModeProvider>{children}</DarkModeProvider>
+          <DarkModeProvider>
+            {children}
+            <ToastContainer />
+          </DarkModeProvider>
         </AppStateProvider>
       </body>
     </html>
