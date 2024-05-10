@@ -5,8 +5,8 @@ import HttpError from "@/config/error";
 import CrudService from "./crud.mjs";
 import { SECRET_KEY } from "@/config/env.mjs";
 
-export class MahasiswaService {
-  static async register(body) {
+export class AuthService {
+  static async registerPortal(body) {
     const { nama, npm, prodi, password, confirmPassword } = body;
     const data = await CrudService.filterData("mahasiswa", "npm", npm);
 
@@ -35,7 +35,7 @@ export class MahasiswaService {
     return mhs;
   }
 
-  static async login(body) {
+  static async loginPortal(body) {
     const { npm, password } = body;
     const data = await CrudService.filterData("mahasiswa", "npm", npm);
 
