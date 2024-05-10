@@ -11,4 +11,5 @@ export const {
   NEXT_PUBLIC_FIREBASE_APP_ID,
   NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
   SECRET_KEY,
+  URL_DEV,
 } = process.env;

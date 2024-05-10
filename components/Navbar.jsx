@@ -16,10 +16,11 @@ import {
   Tooltip,
 } from "@mui/material";
 import Link from "next/link";
-import SwitchDarkMode from "./SwitchDarkMode";
 import Image from "next/image";
-import data from "@/data";
 import { usePathname } from "next/navigation";
+
+import SwitchDarkMode from "./SwitchDarkMode";
+import staticData from "@/staticData";
 
 // Fungsi untuk menambahkan efek naik ketika digulir
 function ElevationScroll(props) {
@@ -43,7 +44,7 @@ ElevationScroll.propTypes = {
 // Komponen Navbar
 export default function Navbar({ pages, settings, children }) {
   const pathname = usePathname();
-  const { logo, fakultas, universitas } = data();
+  const { logo, fakultas, universitas } = staticData;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 

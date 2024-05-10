@@ -18,6 +18,11 @@ const nextConfig = {
         hostname: "flowbite.s3.amazonaws.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
+        port: "",
+      },
     ],
   },
 };

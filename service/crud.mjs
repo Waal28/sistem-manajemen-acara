@@ -50,7 +50,11 @@ export default class CrudService {
   static async addData(collect, data) {
     try {
       const result = await addDoc(collection(db, collect), data);
-      return { id: result.id, ...data };
+      return {
+        id: result.id,
+        created_at: new Date().toLocaleString(),
+        ...data,
+      };
     } catch (error) {
       throw new HttpError(error.message, 500);
     }

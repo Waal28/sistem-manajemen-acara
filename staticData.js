@@ -1,5 +1,5 @@
-export default function data() {
-  const navbarMenu = [
+const staticData = {
+  navbarMenu: [
     {
       name: "Beranda",
       link: "/",
@@ -20,26 +20,22 @@ export default function data() {
       name: "Kontak",
       link: "/contact-us",
     },
-  ];
-  const navSettings = [
+  ],
+  navSettings: [
     {
       name: "Profile",
       link: "/profile",
     },
     {
-      name: "Account",
-      link: "/account",
-    },
-    {
-      name: "Dashboard",
-      link: "/dashboard",
+      name: "My Events",
+      link: "/my-events",
     },
     {
       name: "Logout",
       link: "/logout",
     },
-  ];
-  const prodi = [
+  ],
+  prodi: [
     {
       name: "Teknik Sipil",
       link: "/prodi/teknik-sipil",
@@ -49,8 +45,8 @@ export default function data() {
     { name: "Teknik PWK", link: "/prodi/teknik-pwk" },
     { name: "Teknik Informatika", link: "/prodi/teknik-informatika" },
     { name: "Teknik Geologi", link: "/prodi/teknik-geologi" },
-  ];
-  const layanan = [
+  ],
+  layanan: [
     {
       name: "Universitas Islam Riau",
       link: "/pendaftaran",
@@ -67,17 +63,11 @@ export default function data() {
       name: "Biro Sistem Informasi dan Komputasi",
       link: "/pendaftaran",
     },
-  ];
-  const logo = "/Logo_UIR.svg";
-  const fakultas = "Fakultas Teknik";
-  const universitas = "Universitas Islam Riau";
-  return {
-    navbarMenu,
-    navSettings,
-    logo,
-    fakultas,
-    universitas,
-    prodi,
-    layanan,
-  };
-}
+  ],
+  logo: "/images/Logo_UIR.svg",
+  gedungTI: "/images/gedung-teknik-uir1.jpg",
+  fakultas: "Fakultas Teknik",
+  universitas: "Universitas Islam Riau",
+};
+
+export default staticData;

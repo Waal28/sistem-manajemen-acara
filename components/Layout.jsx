@@ -3,12 +3,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import data from "@/data";
 import { useDarkMode } from "@/context/DarkModeContext";
 import TransitionsModal from "./TransitionsModal";
+import staticData from "@/staticData";
 
 export default function Layout({ children }) {
-  const { navbarMenu, navSettings } = data();
+  const { navbarMenu, navSettings } = staticData;
   const { darkMode } = useDarkMode();
   const isDarkMode = darkMode ? "dark" : "";
 

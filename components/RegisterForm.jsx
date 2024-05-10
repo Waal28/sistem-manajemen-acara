@@ -1,36 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import HttpsIcon from "@mui/icons-material/Https";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import LoginForm, { Visible } from "./LoginForm";
 import { useAppState } from "@/context/AppStateContext";
-import Register from "./Register";
 import { toast } from "react-toastify";
 
-export const Visible = ({ showPassword, setShowPassword }) => {
-  return (
-    <div className="absolute top-3 right-3 cursor-pointer dark:text-grey-200 text-gray-400">
-      {showPassword ? (
-        <VisibilityOffIcon onClick={() => setShowPassword(!showPassword)} />
-      ) : (
-        <VisibilityIcon onClick={() => setShowPassword(!showPassword)} />
-      )}
-    </div>
-  );
-};
-Visible.propTypes = {
-  showPassword: PropTypes.bool,
-  setShowPassword: PropTypes.func,
-};
-
-export default function Login() {
+export default function RegisterForm() {
   const { handleModal } = useAppState();
   const [showPassword, setShowPassword] = React.useState(false);
   const [formState, setFormState] = React.useState({
     nama: "",
     npm: "",
+    email: "",
     password: "",
+    confirmPassword: "",
   });
   function handleChange(e) {
     setFormState({
@@ -38,12 +21,12 @@ export default function Login() {
       [e.target.name]: e.target.value,
     });
   }
-  function handleClickRegister() {
-    handleModal("open", <Register />);
-  }
+  const handleClickLogin = () => {
+    handleModal("open", <LoginForm />);
+  };
   function handleSubmit(e) {
     e.preventDefault();
-    toast("Login berhasil!", { type: "success", theme: "colored" });
+    toast("Register berhasil");
     console.log(formState);
   }
   return (
@@ -51,8 +34,8 @@ export default function Login() {
       <div className="flex items-center justify-center">
         <div className="bg-gray-200 dark:bg-gray-900 rounded-2xl w-full flex flex-col items-center justify-center p-5 lg:py-10 sm:py-10">
           <div className="flex flex-col items-center mb-6 text-2xl font-semibold text-teal-800 dark:text-white">
-            <HttpsIcon className="text-5xl" />
-            Login Portal
+            <AppRegistrationIcon className="text-5xl" />
+            Register akun Portal
           </div>
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -95,6 +78,24 @@ export default function Login() {
                 </div>
                 <div>
                   <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-teal-800 dark:text-white"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                    className="bg-gray-50 border border-gray-300 text-teal-800 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="slamet@gmail.com"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
                     htmlFor="password"
                     className="block mb-2 text-sm font-medium text-teal-800 dark:text-white"
                   >
@@ -117,50 +118,41 @@ export default function Login() {
                     />
                   </div>
                 </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-start">
-                    <div className="flex items-center h-5">
-                      <input
-                        id="remember"
-                        aria-describedby="remember"
-                        type="checkbox"
-                        className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-teal-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-teal-600 dark:ring-offset-gray-800"
-                        required
-                      />
-                    </div>
-                    <div className="ml-3 text-sm">
-                      <label
-                        htmlFor="remember"
-                        className="text-gray-500 dark:text-gray-300"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-                  </div>
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-teal-600 hover:underline dark:text-white"
+                <div>
+                  <label
+                    htmlFor="confirm-password"
+                    className="block mb-2 text-sm font-medium text-teal-800 dark:text-white"
                   >
-                    Forgot password?
-                  </a>
+                    Confirm password
+                  </label>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="confirm-password"
+                    id="confirm-password"
+                    value={formState.confirmPassword}
+                    onChange={handleChange}
+                    className="bg-gray-50 border border-gray-300 text-teal-800 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="••••••••"
+                    required
+                  />
                 </div>
+
                 <button
                   type="submit"
                   className="w-full text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800"
                 >
-                  Sign in
+                  Create an account
                 </button>
               </form>
 
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
+                Already have an account?{" "}
                 <button
                   type="button"
+                  onClick={handleClickLogin}
                   className="font-medium text-teal-600 hover:underline dark:text-white"
-                  onClick={handleClickRegister}
                 >
-                  Sign up
+                  Login here
                 </button>
               </p>
             </div>

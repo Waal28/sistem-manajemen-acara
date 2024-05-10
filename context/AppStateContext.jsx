@@ -16,6 +16,11 @@ export const AppStateProvider = ({ children }) => {
     children: <div></div>,
   });
 
+  // const [isLogin, setIsLogin] = useState({
+  //   portal: false,
+  //   admin: false,
+  // });
+
   const handleModal = (opt, children) => {
     switch (opt) {
       case "open":

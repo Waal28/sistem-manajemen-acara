@@ -142,10 +142,17 @@ export default function Benefits() {
         <h2 className="mb-6 text-6xl tracking-tight font-extrabold text-center text-teal-900 dark:text-white">
           Benefit
         </h2>
-        <p className="mb-20 text-teal-900 dark:text-white">
+        <p className="mb-12 text-teal-900 dark:text-white">
           Beberapa benefit menarik yang bisa didapat dari mengikuti acara di
           kampus.
         </p>
+        <div className="text-center mb-14">
+          <span className="inline-block w-1 h-1 rounded-full bg-teal-500 ml-1" />
+          <span className="inline-block w-3 h-1 rounded-full bg-teal-500 mx-1" />
+          <span className="inline-block w-40 h-1 rounded-full bg-teal-500" />
+          <span className="inline-block w-3 h-1 rounded-full bg-teal-500 ml-1" />
+          <span className="inline-block w-1 h-1 rounded-full bg-teal-500 ml-1" />
+        </div>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-12 justify-center items-center">
           {datas.map((data) => (
             <div className="mb-12 lg:mb-0 shadow-xl h-full" key={data.id}>

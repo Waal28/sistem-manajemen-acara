@@ -1,5 +1,4 @@
 "use client";
-import data from "@/data";
 import { Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,9 +6,10 @@ import React from "react";
 import EmailIcon from "@mui/icons-material/Email";
 import CallIcon from "@mui/icons-material/Call";
 import PlaceIcon from "@mui/icons-material/Place";
+import staticData from "@/staticData";
 
 export default function Footer() {
-  const { logo, fakultas, universitas, prodi, layanan } = data();
+  const { logo, fakultas, universitas, prodi, layanan } = staticData;
   const alamat =
     "Jl. Kaharuddin Nasution 113, Pekanbaru 28284, Riau - Indonesia";
   const email = "fakultas_teknik@uir.ac.id";

@@ -1,11 +1,14 @@
 "use client";
-import { useAppState } from "@/context/AppStateContext";
-import { useDarkMode } from "@/context/DarkModeContext";
 import Image from "next/image";
 import React from "react";
-import Login from "./Login";
+
+import { useAppState } from "@/context/AppStateContext";
+import { useDarkMode } from "@/context/DarkModeContext";
+import Login from "../../LoginForm";
+import staticData from "@/staticData";
 
 export default function MainHero() {
+  const { gedungTI } = staticData;
   const { handleModal } = useAppState();
   const [show, setShow] = React.useState(false);
   const { darkMode } = useDarkMode();
@@ -83,7 +86,7 @@ export default function MainHero() {
               }`}
             >
               <Image
-                src="/gedung-teknik-uir1.png"
+                src={gedungTI}
                 width={400}
                 height={0}
                 className="w-full h-auto rounded-lg shadow-lg dark:shadow-black/20"

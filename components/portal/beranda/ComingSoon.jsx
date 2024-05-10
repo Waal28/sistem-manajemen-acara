@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import CarauselComp from "./CarauselComp";
+import CarauselComp from "../../CarauselComp";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
@@ -52,55 +52,54 @@ export default function ComingSoon() {
   );
 }
 
+const data = [
+  {
+    id: 1,
+    fakultas: "Teknik Informatika",
+    link: "/all-events/Acara bla bla bla bla bla",
+    title: "Acara bla bla bla bla bla",
+    imgsrc:
+      "https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+    imgalt: "image1",
+  },
+  {
+    id: 2,
+    fakultas: "Teknik Mesin",
+    link: "/all-events/Webinar blablabla blablabla",
+    title: "Webinar blablabla blablabla",
+    imgsrc:
+      "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80",
+    imgalt: "image2",
+  },
+  {
+    id: 3,
+    fakultas: "Teknik PWK",
+    link: "/all-events/Workshop blablablablablabla",
+    title: "Workshop blablablablablabla",
+    imgsrc:
+      "https://images.unsplash.com/photo-1561835491-ed2567d96913?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80",
+    imgalt: "image3",
+  },
+  {
+    id: 4,
+    fakultas: "Teknik Geologi",
+    link: "/all-events/Workshop lorem lorem lorem",
+    title: "Workshop lorem lorem lorem",
+    imgsrc: "/images/4.jpg",
+    imgalt: "image4",
+  },
+  {
+    id: 5,
+    fakultas: "Teknik Perminyakan",
+    link: "/all-events/Acara lorem ipsum lorem ipsum lorem bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
+    title:
+      "Acara lorem ipsum lorem ipsum lorem bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
+    imgsrc: "/images/5.jpg",
+    imgalt: "image5",
+  },
+];
 function Items() {
-  const items = [
-    {
-      id: 1,
-      fakultas: "Teknik Informatika",
-      link: "/all-events/Acara bla bla bla bla bla",
-      title: "Acara bla bla bla bla bla",
-      imgsrc:
-        "https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      imgalt: "image1",
-    },
-    {
-      id: 2,
-      fakultas: "Teknik Mesin",
-      link: "/all-events/Webinar blablabla blablabla",
-      title: "Webinar blablabla blablabla",
-      imgsrc:
-        "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80",
-      imgalt: "image2",
-    },
-    {
-      id: 3,
-      fakultas: "Teknik PWK",
-      link: "/all-events/Workshop blablablablablabla",
-      title: "Workshop blablablablablabla",
-      imgsrc:
-        "https://images.unsplash.com/photo-1561835491-ed2567d96913?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80",
-      imgalt: "image3",
-    },
-    {
-      id: 4,
-      fakultas: "Teknik Geologi",
-      link: "/all-events/Workshop lorem lorem lorem",
-      title: "Workshop lorem lorem lorem",
-      imgsrc: "/images/4.jpg",
-      imgalt: "image4",
-    },
-    {
-      id: 5,
-      fakultas: "Teknik Perminyakan",
-      link: "/all-events/Acara lorem ipsum lorem ipsum lorem bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
-      title:
-        "Acara lorem ipsum lorem ipsum lorem bla bla bla bla bla bla bla bla bla bla bla bla bla bla",
-      imgsrc: "/images/5.jpg",
-      imgalt: "image5",
-    },
-  ];
-
-  return items.map((item) => (
+  return data.map((item) => (
     <div key={item.id} className="flex justify-center items-center py-2">
       <div className="max-w-sm h-[574px] bg-white dark:bg-teal-800 px-6 pt-6 pb-2 rounded-xl shadow-xl transform hover:scale-105 transition duration-500 ">
         <main className="h-full flex flex-col justify-between">

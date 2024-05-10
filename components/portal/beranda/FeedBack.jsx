@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import PropTypes from "prop-types";
 
 function StarRating() {
   return (
@@ -62,7 +64,7 @@ function Card({ name, text, img }) {
       </h5>
       <div className="w-full flex mb-4 items-center">
         <div className="overflow-hidden rounded-full w-10 h-10 bg-gray-50 border border-gray-200">
-          <img src={img} alt="" />
+          <Image src={img} alt="..." width={40} height={40} />
         </div>
         <div className="flex-grow pl-3">
           <h6 className="font-bold text-sm text-gray-600 dark:text-gray-200">
@@ -75,15 +77,25 @@ function Card({ name, text, img }) {
       </div>
       <div className="w-full mb-2">
         <p className="text-sm leading-tight text-gray-400 dark:text-white">
-          <span className="text-lg leading-none italic font-bold mr-1">"</span>
+          <span></span>
+          <span className="text-lg leading-none italic font-bold mr-1">
+            {'"'}
+          </span>
           {text}
-          <span className="text-lg leading-none italic font-bold ml-1">"</span>
+          <span className="text-lg leading-none italic font-bold ml-1">
+            {'"'}
+          </span>
         </p>
       </div>
       <StarRating />
     </div>
   );
 }
+Card.propTypes = {
+  name: PropTypes.string,
+  text: PropTypes.string,
+  img: PropTypes.string,
+};
 
 const data = [
   {
@@ -119,7 +131,7 @@ export default function FeedBack() {
           <h2 className="mb-6 text-6xl tracking-tight font-extrabold text-center text-teal-900 dark:text-white">
             Review
           </h2>
-          <p className="mb-20 text-teal-900 dark:text-white">
+          <p className="mb-12 text-teal-900 dark:text-white">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores,
             qui. Beatae reiciendis corporis labore ad. A iste id culpa eaque,
             non esse itaque architecto molestiae nobis totam delectus modi

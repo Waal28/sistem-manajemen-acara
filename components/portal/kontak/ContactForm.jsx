@@ -2,7 +2,7 @@
 import { Container } from "@mui/material";
 import React from "react";
 
-export default function Contact() {
+export default function ContactForm() {
   return (
     <Container>
       <section className="relative">
