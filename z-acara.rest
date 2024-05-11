@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/acara
 
 ### get one acara
-GET http://localhost:3000/api/acara/ET23Qyk5v55yk2C9pncP
+GET http://localhost:3000/api/acara/T55LJc6s6uaclcWHD8Mw
 
 ### add data acara
 POST http://localhost:3000/api/acara
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 ### edit data acara
-PUT http://localhost:3000/api/acara/ET23Qyk5v55yk2C9pncP
+PUT http://localhost:3000/api/acara/T55LJc6s6uaclcWHD8Mw
 Content-Type: application/json
 
 {
@@ -35,4 +35,4 @@ Content-Type: application/json
 }
 
 ### delete data acara
-DELETE  http://localhost:3000/api/acara/N854siADsq2N8pb03DJ1
+DELETE  http://localhost:3000/api/acara/ET23Qyk5v55yk2C9pncP

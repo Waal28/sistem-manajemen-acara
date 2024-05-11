@@ -1,5 +1,5 @@
-import HttpError from "@/config/error";
-import { db } from "../config/firebase.mjs";
+import HttpError from "./error.js";
+import { db } from "./firebase.mjs";
 import {
   doc,
   getDoc,
@@ -12,7 +12,7 @@ import {
   where,
 } from "firebase/firestore";
 
-export default class CrudService {
+export default class CrudConfig {
   static async getAllData(collect) {
     try {
       const snapshot = await getDocs(collection(db, collect));

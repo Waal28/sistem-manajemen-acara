@@ -1,5 +1,5 @@
-import AuthController from "@/controller/auth";
+import MahasiswaController from "@/controller/mahasiswa";
 
 export async function POST(req) {
-  return AuthController.loginPortal(req);
+  return MahasiswaController.login(req);
 }

@@ -1,10 +1,11 @@
 import { handleResponse } from "@/app/api/route";
-import CrudService from "@/service/crud.mjs";
+import HttpError from "@/config/error";
+import AcaraService from "@/service/acara";
 
 export default class AcaraController {
   static async getAll() {
     try {
-      const result = await CrudService.getAllData("acara");
+      const result = await AcaraService.getAll();
 
       return handleResponse(200, "Berhasil menampilkan semua data", result);
     } catch (error) {
@@ -16,7 +17,7 @@ export default class AcaraController {
     const id = context.params.id;
 
     try {
-      const result = await CrudService.getOneData("acara", id);
+      const result = await AcaraService.getOne(id);
 
       return handleResponse(200, "Berhasil menampilkan data", result);
     } catch (error) {
@@ -46,12 +47,12 @@ export default class AcaraController {
       !tempat ||
       !gambar;
 
-    if (checkBody) {
-      return handleResponse(400, "Data tidak lengkap");
-    }
-
     try {
-      const result = await CrudService.addData("acara", body);
+      if (checkBody) {
+        throw new HttpError("Data tidak lengkap", 400);
+      }
+
+      const result = await AcaraService.create(body);
 
       return handleResponse(200, "Berhasil menambahkan data", result);
     } catch (error) {
@@ -62,9 +63,31 @@ export default class AcaraController {
   static async update(req, context) {
     const id = context.params.id;
     const body = await req.json();
+    const {
+      judul,
+      deskripsi,
+      kategori,
+      prodi,
+      waktu_mulai,
+      waktu_selesai,
+      tempat,
+      gambar,
+    } = body;
+    const checkBody =
+      !judul ||
+      !deskripsi ||
+      !kategori ||
+      !prodi ||
+      !waktu_mulai ||
+      !waktu_selesai ||
+      !tempat ||
+      !gambar;
 
     try {
-      const result = await CrudService.updateData("acara", id, body);
+      if (checkBody) {
+        throw new HttpError("Data tidak lengkap", 400);
+      }
+      const result = await AcaraService.update(id, body);
 
       return handleResponse(200, "Berhasil mengupdate data", result);
     } catch (error) {
@@ -76,7 +99,7 @@ export default class AcaraController {
     const id = context.params.id;
 
     try {
-      await CrudService.deleteData("acara", id);
+      await AcaraService.delete(id);
 
       return handleResponse(200, "Berhasil menghapus data");
     } catch (error) {

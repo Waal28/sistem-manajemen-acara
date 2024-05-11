@@ -27,14 +27,7 @@ export default function TransitionsModal() {
         }}
       >
         <Fade in={modal.open}>
-          <div
-            className={
-              isDarkMode +
-              " absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl lg:w-1/2 md:w-[60%] sm:w-[80%] w-[90%]"
-            }
-          >
-            {modal.children}
-          </div>
+          <div className={isDarkMode}>{modal.children}</div>
         </Fade>
       </Modal>
     </>
