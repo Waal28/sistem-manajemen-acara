@@ -5,10 +5,11 @@ Content-Type: application/json
 
 {
     "npm": "203510358",
+    "email": "iwal@gmail.com",
     "password": "12345",
     "confirmPassword": "12345",
     "nama": "iwal",
-    "prodi":"Teknik Informatika"
+    "prodi":"Teknik Mesin"
 }
 
 ### login portal

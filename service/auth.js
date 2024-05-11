@@ -7,12 +7,8 @@ import { SECRET_KEY } from "@/config/env.mjs";
 
 export class AuthService {
   static async registerPortal(body) {
-    const { nama, npm, prodi, password, confirmPassword } = body;
+    const { nama, npm, email, prodi, password, confirmPassword } = body;
     const data = await CrudService.filterData("mahasiswa", "npm", npm);
-
-    if (!nama || !npm || !prodi || !password || !confirmPassword) {
-      throw new HttpError("Data tidak lengkap", 400);
-    }
 
     if (data.length > 0) {
       throw new HttpError("NPM sudah terdaftar", 400);
@@ -23,14 +19,16 @@ export class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const payload = { nama, npm, prodi, password: hashedPassword };
+    const payload = { nama, npm, email, prodi, password: hashedPassword };
     const result = await CrudService.addData("mahasiswa", payload);
 
     const mhs = {
       id: result.id,
       nama: result.nama,
       npm: result.npm,
+      email: result.email,
       prodi: result.prodi,
+      created_at: result.created_at,
     };
     return mhs;
   }

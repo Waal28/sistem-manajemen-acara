@@ -1,5 +1,7 @@
 import { handleResponse } from "@/app/api/route";
+import HttpError from "@/config/error";
 import CrudService from "@/service/crud.mjs";
+import MahasiswaService from "@/service/mahasiswa";
 
 export default class MahasiswaController {
   static async getAll() {
@@ -23,23 +25,23 @@ export default class MahasiswaController {
       return handleResponse(error.statusCode, error.message);
     }
   }
-
-  static async create(req) {
+  static async ubahPassword(req, context) {
+    const id = context.params.id;
     const body = await req.json();
-    const { nama, npm, email, password } = body;
-    if (!nama || (!npm && !email && !password)) {
-      return handleResponse(400, "Data tidak lengkap");
-    }
+    const { oldPassword, newPassword } = body;
 
     try {
-      const result = await CrudService.addData("mahasiswa", body);
+      if (!oldPassword || !newPassword) {
+        throw new HttpError("Data tidak lengkap", 400);
+      }
 
-      return handleResponse(200, "Berhasil menambahkan data", result);
+      const result = await MahasiswaService.ubahPassword(body, id);
+
+      return handleResponse(200, "Ubah password berhasil", result);
     } catch (error) {
       return handleResponse(error.statusCode, error.message);
     }
   }
-
   static async update(req, context) {
     const id = context.params.id;
     const body = await req.json();

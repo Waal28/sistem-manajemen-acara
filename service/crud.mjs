@@ -68,7 +68,7 @@ export default class CrudService {
         const docRef = doc(db, collect, id);
         await updateDoc(docRef, data);
 
-        return { id, ...data };
+        return isData;
       } catch (error) {
         throw new HttpError(error.message, 500);
       }

@@ -26,4 +26,4 @@ Content-Type: application/json
 }
 
 ### delete data mahasiswa
-DELETE  http://localhost:3000/api/mahasiswa/Za9d7vnlTnPTJtzwkUyG
+DELETE  http://localhost:3000/api/mahasiswa/gAfXjrMVm0HbQAQtiwMP
