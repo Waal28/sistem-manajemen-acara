@@ -2,12 +2,11 @@
 GET http://localhost:3000/api/mahasiswa
 
 ### get one mahasiswa
-GET http://localhost:3000/api/mahasiswa/login
+GET http://localhost:3000/api/mahasiswa/51LkAbhTX4rrRLnV1DEv
 
 ### add data mahasiswa
 POST http://localhost:3000/api/mahasiswa
 Content-Type: application/json
-Authorization: 122
 
 {
     "npm": "20351055",
@@ -15,15 +14,24 @@ Authorization: 122
 }
 
 ### edit data mahasiswa
-PUT http://localhost:3000/api/mahasiswa/CN3wEug8oFqh3j3AA6NO
+PUT http://localhost:3000/api/mahasiswa/Ghg2qXlMaXNqkhBbYPmM
 Content-Type: application/json
 
 {
-    "nama": "geri",
-    "npm": "203510345",
-    "email": "geri@gmail.com",
-    "password": "2323232323"
+    "nama": "iwal gege",
+    "npm": "203510358",
+    "email": "iwal@gmail.com",
+    "prodi": "Teknik Mesin"
 }
 
 ### delete data mahasiswa
-DELETE  http://localhost:3000/api/mahasiswa/gAfXjrMVm0HbQAQtiwMP
+DELETE  http://localhost:3000/api/mahasiswa/51LkAbhTX4rrRLnV1DEv
+
+### ubah password mahasiswa
+POST http://localhost:3000/api/mahasiswa/Ghg2qXlMaXNqkhBbYPmM/change-password
+Content-Type: application/json
+
+{
+    "oldPassword": "12345",
+    "newPassword": "12345"
+}

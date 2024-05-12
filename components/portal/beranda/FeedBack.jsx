@@ -145,7 +145,7 @@ export default function FeedBack() {
             <span className="inline-block w-1 h-1 rounded-full bg-teal-500 ml-1" />
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
           {data.map((item) => (
             <Card key={item.id} {...item} />
           ))}

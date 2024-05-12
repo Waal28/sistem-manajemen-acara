@@ -2,6 +2,10 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+
 import Toolbar from "@mui/material/Toolbar";
 import CssBaseline from "@mui/material/CssBaseline";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
@@ -15,15 +19,11 @@ import {
   Stack,
   Tooltip,
 } from "@mui/material";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-
 import SwitchDarkMode from "./SwitchDarkMode";
 import staticData from "@/staticData";
 import { useAppState } from "@/context/AppStateContext";
 import Cookies from "js-cookie";
-import CardProfile from "./portal/profile/CardProfile";
+import Profile from "./portal/profile/Profile";
 
 // Fungsi untuk menambahkan efek naik ketika digulir
 function ElevationScroll(props) {
@@ -47,7 +47,7 @@ ElevationScroll.propTypes = {
 // Komponen Navbar
 export default function Navbar({ pages, settings, children }) {
   const pathname = usePathname();
-  const { userLogin, handleIsLogin, handleModal } = useAppState();
+  const { isLogin, handleIsLogin, handleModal } = useAppState();
   const router = useRouter();
   const { logo, fakultas, universitas } = staticData;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -76,10 +76,10 @@ export default function Navbar({ pages, settings, children }) {
   const handleNavigate = (route) => {
     if (route === "/logout") {
       Cookies.remove("token");
-      handleIsLogin("portal", { isLogin: false });
+      handleIsLogin("portal", false);
       router.push("/");
     } else if (route === "/profile") {
-      handleModal("open", <CardProfile />);
+      handleModal("open", <Profile />);
     } else {
       router.push(route);
     }
@@ -210,7 +210,7 @@ export default function Navbar({ pages, settings, children }) {
             {/* Tombol Dark Mode dan Avatar Pengguna */}
             <Box sx={{ flexGrow: 0 }}>
               <Stack direction="row">
-                {userLogin.portal.isLogin ? (
+                {isLogin.portal ? (
                   <>
                     <Box
                       sx={{

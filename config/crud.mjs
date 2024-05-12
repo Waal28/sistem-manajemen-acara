@@ -67,8 +67,8 @@ export default class CrudConfig {
       try {
         const docRef = doc(db, collect, id);
         await updateDoc(docRef, data);
-
-        return isData;
+        const res = await this.getOneData(collect, id);
+        return res;
       } catch (error) {
         throw new HttpError(error.message, 500);
       }

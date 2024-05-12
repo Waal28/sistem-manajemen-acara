@@ -27,7 +27,7 @@ export default function TransitionsModal() {
         }}
       >
         <Fade in={modal.open}>
-          <div className={isDarkMode}>{modal.children}</div>
+          <div className={isDarkMode + " my-10"}>{modal.children}</div>
         </Fade>
       </Modal>
     </>

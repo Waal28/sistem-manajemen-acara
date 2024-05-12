@@ -12,11 +12,26 @@ export default class MahasiswaService {
   }
   static async getOne(id) {
     const result = await CrudConfig.getOneData("mahasiswa", id);
-    return result;
+    const mhs = {
+      id: result.id,
+      nama: result.nama,
+      npm: result.npm,
+      email: result.email,
+      prodi: result.prodi,
+    };
+    return mhs;
   }
   static async update(id, body) {
     const result = await CrudConfig.updateData("mahasiswa", id, body);
-    return result;
+
+    const mhs = {
+      id: result.id,
+      nama: result.nama,
+      npm: result.npm,
+      email: result.email,
+      prodi: result.prodi,
+    };
+    return mhs;
   }
   static async delete(id) {
     await CrudConfig.deleteData("mahasiswa", id);
@@ -61,11 +76,6 @@ export default class MahasiswaService {
 
     const payload = {
       id: data[0].id,
-      nama: data[0].nama,
-      npm: data[0].npm,
-      email: data[0].email,
-      prodi: data[0].prodi,
-      isLogin: true,
     };
     const isPasswordValid = await bcrypt.compare(password, data[0].password);
     if (!isPasswordValid) {
@@ -84,18 +94,18 @@ export default class MahasiswaService {
       throw new HttpError("Password salah", 400);
     }
 
-    const newPasswordHash = await bcrypt.hash(newPassword, 10);
-    if (mhs.password === newPasswordHash) {
+    if (newPassword === oldPassword) {
       throw new HttpError(
         "Password baru tidak boleh sama dengan password lama",
         400
       );
     }
 
-    const res = await CrudConfig.updateData("mahasiswa", id, {
+    const newPasswordHash = await bcrypt.hash(newPassword, 10);
+    await CrudConfig.updateData("mahasiswa", id, {
       password: newPasswordHash,
     });
 
-    return res;
+    return true;
   }
 }

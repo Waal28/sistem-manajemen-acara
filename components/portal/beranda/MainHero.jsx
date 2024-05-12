@@ -9,7 +9,7 @@ import staticData from "@/staticData";
 
 export default function MainHero() {
   const { gedungTI } = staticData;
-  const { userLogin, handleModal } = useAppState();
+  const { isLogin, handleModal } = useAppState();
   const [show, setShow] = React.useState(false);
   const { darkMode } = useDarkMode();
 
@@ -70,7 +70,7 @@ export default function MainHero() {
                   Universitas Islam Riau
                 </p>
               </div>
-              {userLogin.portal.isLogin ? (
+              {isLogin.portal ? (
                 ""
               ) : (
                 <button
@@ -94,7 +94,8 @@ export default function MainHero() {
                 width={400}
                 height={0}
                 className="w-full h-auto rounded-lg shadow-lg dark:shadow-black/20"
-                alt=""
+                alt="gedungTI"
+                priority
               />
             </div>
           </div>

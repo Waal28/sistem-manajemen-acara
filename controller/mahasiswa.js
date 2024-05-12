@@ -31,7 +31,7 @@ export default class MahasiswaController {
     const body = await req.json();
 
     try {
-      const result = await MahasiswaService.update(body, id);
+      const result = await MahasiswaService.update(id, body);
 
       return handleResponse(200, "Berhasil mengupdate data", result);
     } catch (error) {
@@ -101,9 +101,9 @@ export default class MahasiswaController {
         throw new HttpError("Data tidak lengkap", 400);
       }
 
-      const result = await MahasiswaService.ubahPassword(body, id);
+      await MahasiswaService.ubahPassword(body, id);
 
-      return handleResponse(200, "Ubah password berhasil", result);
+      return handleResponse(200, "Ubah password berhasil");
     } catch (error) {
       return handleResponse(error.statusCode, error.message);
     }

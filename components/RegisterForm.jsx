@@ -37,7 +37,10 @@ export default function RegisterForm() {
       const res = await axios.post("/api/auth/portal-register", formState);
 
       setIsLoading(false);
-      toast(res.data.message, { type: "success", theme: "colored" });
+      toast(`${res.data.message}, silahkan login`, {
+        type: "success",
+        theme: "colored",
+      });
       handleModal("open", <LoginForm />);
     } catch (error) {
       setIsLoading(false);
@@ -49,8 +52,8 @@ export default function RegisterForm() {
     <main className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl lg:w-[50%] md:w-[60%] sm:w-[80%] w-[90%] max-h-screen overflow-auto">
       <div className="w-full mx-auto flex items-center justify-center">
         <div className="w-full bg-gray-200 dark:bg-gray-900 rounded-2xl flex flex-col items-center justify-center p-5 lg:py-10 sm:py-10">
-          <div className="flex flex-col items-center mb-6 text-2xl font-semibold text-teal-800 dark:text-white">
-            <AppRegistrationIcon className="text-5xl" />
+          <div className="flex flex-col items-center mb-6 lg:text-2xl md:text-2xl font-semibold text-teal-800 dark:text-white">
+            <AppRegistrationIcon className="lg:text-5xl md:text-5xl text-4xl" />
             Register akun Portal
           </div>
           <div className="w-full lg:w-[80%] md:w-[80%] sm:w-[80%] p-6 space-y-4 md:space-y-6 sm:p-8 shadow-xl bg-white rounded-lg dark:border dark:bg-gray-800 dark:border-gray-700">
@@ -59,7 +62,7 @@ export default function RegisterForm() {
               onSubmit={handleSubmit}
               autoComplete="off"
             >
-              <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
                 <section className="w-full">
                   <label
                     htmlFor="nama"
@@ -187,7 +190,7 @@ export default function RegisterForm() {
 
               <button
                 type="submit"
-                className="w-full text-white bg-teal-600 hover:bg-teal-700 focus:ring-2 focus:outline-none focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-300"
+                className="w-full text-white bg-teal-600 hover:bg-teal-700 focus:ring-2 focus:outline-none focus:ring-teal-700 font-medium rounded-lg lg:text-sm md:text-sm text-xs px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-300"
               >
                 {isLoading ? (
                   <Spinner className="w-5 h-5 text-white fill-teal-600" />
@@ -197,7 +200,7 @@ export default function RegisterForm() {
               </button>
             </form>
 
-            <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+            <p className="lg:text-sm md:text-sm text-xs font-light text-gray-500 dark:text-gray-400">
               Sudah punya akun?{" "}
               <button
                 type="button"
