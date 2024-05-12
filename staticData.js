@@ -9,10 +9,6 @@ const staticData = {
       link: "/all-events",
     },
     {
-      name: "Seminar",
-      link: "/all-seminars",
-    },
-    {
       name: "Galeri",
       link: "/gallery",
     },
@@ -23,11 +19,11 @@ const staticData = {
   ],
   navSettings: [
     {
-      name: "Profile",
+      name: "Profil",
       link: "/profile",
     },
     {
-      name: "My Events",
+      name: "Acara Saya",
       link: "/my-events",
     },
     {

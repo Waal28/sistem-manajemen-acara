@@ -1,3 +1,4 @@
+import CardProfile from "@/components/portal/profile/CardProfile";
 import React from "react";
 
 export const metadata = {
@@ -5,5 +6,5 @@ export const metadata = {
     "Profile - Portal Informasi Acara & Seminar Fakultas Teknik Universitas Islam Riau",
 };
 export default function page() {
-  return <h1>Ini halaman Profile</h1>;
+  return <CardProfile />;
 }

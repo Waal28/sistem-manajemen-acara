@@ -63,14 +63,16 @@ export default class MahasiswaService {
       id: data[0].id,
       nama: data[0].nama,
       npm: data[0].npm,
+      email: data[0].email,
       prodi: data[0].prodi,
+      isLogin: true,
     };
     const isPasswordValid = await bcrypt.compare(password, data[0].password);
     if (!isPasswordValid) {
       throw new HttpError("Password tidak sesuai", 400);
     }
 
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1d" });
+    const token = jwt.sign(payload, SECRET_KEY);
     return token;
   }
   static async ubahPassword(body, id) {

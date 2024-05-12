@@ -9,7 +9,7 @@ import staticData from "@/staticData";
 
 export default function MainHero() {
   const { gedungTI } = staticData;
-  const { handleModal } = useAppState();
+  const { userLogin, handleModal } = useAppState();
   const [show, setShow] = React.useState(false);
   const { darkMode } = useDarkMode();
 
@@ -61,7 +61,7 @@ export default function MainHero() {
                   Selamat Datang
                 </p>
                 <p className="text-3xl drop-shadow-2xl font-bold mt-3 tracking-tight md:text-4xl xl:text-5xl">
-                  Di Portal Informasi Acara & Seminar
+                  Di Portal Informasi Acara
                 </p>
                 <p className="text-2xl font-georgia tracking-wider font-medium mt-3 drop-shadow-2xl md:text-3xl xl:text-4xl">
                   Fakultas Teknik
@@ -70,13 +70,17 @@ export default function MainHero() {
                   Universitas Islam Riau
                 </p>
               </div>
-              <button
-                onClick={handleClickLogin}
-                className="inline-block rounded-full bg-teal-900 px-12 pt-4 pb-3.5 border-double border-4 border-teal-700 text-sm font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:font-semibold hover:bg-neutral-500 hover:bg-opacity-10 hover:text-teal-900 active:text-teal-700 dark:hover:bg-white dark:hover:bg-opacity-60"
-                role="button"
-              >
-                Login
-              </button>
+              {userLogin.portal.isLogin ? (
+                ""
+              ) : (
+                <button
+                  onClick={handleClickLogin}
+                  className="inline-block rounded-full bg-teal-900 px-12 pt-4 pb-3.5 border-double border-4 border-teal-700 text-sm font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:font-semibold hover:bg-neutral-500 hover:bg-opacity-10 hover:text-teal-900 active:text-teal-700 dark:hover:bg-white dark:hover:bg-opacity-60"
+                  role="button"
+                >
+                  Login
+                </button>
+              )}
             </div>
             <div
               className={`mb-12 lg:mb-0 transform transition-all duration-1000 ${

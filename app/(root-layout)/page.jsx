@@ -8,6 +8,7 @@ export const metadata = {
   title:
     "Beranda - Portal Informasi Acara & Seminar Fakultas Teknik Universitas Islam Riau",
 };
+
 export default function Home() {
   return (
     <>

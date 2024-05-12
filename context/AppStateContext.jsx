@@ -16,10 +16,10 @@ export const AppStateProvider = ({ children }) => {
     children: <div></div>,
   });
 
-  // const [isLogin, setIsLogin] = useState({
-  //   portal: false,
-  //   admin: false,
-  // });
+  const [userLogin, setUserLogin] = useState({
+    portal: { isLogin: false },
+    admin: { isLogin: false },
+  });
 
   const handleModal = (opt, children) => {
     switch (opt) {
@@ -31,8 +31,26 @@ export const AppStateProvider = ({ children }) => {
         break;
     }
   };
+  const handleIsLogin = (opt, value) => {
+    switch (opt) {
+      case "portal":
+        setUserLogin({ ...userLogin, portal: value });
+        break;
+      case "admin":
+        setUserLogin({ ...userLogin, admin: value });
+        break;
+    }
+  };
+
   return (
-    <AppStateContext.Provider value={{ modal, handleModal }}>
+    <AppStateContext.Provider
+      value={{
+        modal,
+        handleModal,
+        userLogin,
+        handleIsLogin,
+      }}
+    >
       {children}
     </AppStateContext.Provider>
   );

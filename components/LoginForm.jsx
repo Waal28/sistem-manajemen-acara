@@ -12,7 +12,7 @@ import Spinner from "./Spinner";
 
 export const Visible = ({ showPassword, setShowPassword }) => {
   return (
-    <div className="absolute top-3 right-3 cursor-pointer dark:text-grey-200 text-gray-400">
+    <div className="absolute top-[20%] right-3 cursor-pointer dark:text-grey-200 text-gray-400">
       {showPassword ? (
         <VisibilityOffIcon onClick={() => setShowPassword(!showPassword)} />
       ) : (
@@ -27,7 +27,7 @@ Visible.propTypes = {
 };
 
 export default function LoginForm() {
-  const { handleModal } = useAppState();
+  const { handleModal, userLogin, handleIsLogin } = useAppState();
   const [showPassword, setShowPassword] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [formState, setFormState] = React.useState({
@@ -51,20 +51,23 @@ export default function LoginForm() {
       const res = await axios.post("/api/auth/portal-login", formState);
       setIsLoading(false);
       toast(res.data.message, { type: "success", theme: "colored" });
+      handleModal("close");
+      handleIsLogin("portal", userLogin);
+      window.location.reload();
     } catch (error) {
       setIsLoading(false);
       toast(error.response.data.message, { type: "error", theme: "colored" });
     }
   }
   return (
-    <main className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl lg:w-[50%] md:w-[60%] sm:w-[80%] w-[90%]">
+    <main className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl lg:w-[50%] md:w-[60%] sm:w-[80%] w-[90%] max-h-screen overflow-auto">
       <div className="w-full mx-auto flex items-center justify-center">
         <div className="w-full bg-gray-200 dark:bg-gray-900 rounded-2xl flex flex-col items-center justify-center p-5 lg:py-10 sm:py-10">
           <div className="flex flex-col items-center mb-6 text-2xl font-semibold text-teal-800 dark:text-white">
             <HttpsIcon className="text-5xl" />
             Login Portal
           </div>
-          <div className="w-full lg:w-[70%] md:w-[80%] p-6 space-y-4 md:space-y-6 sm:p-8 bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full lg:w-[70%] md:w-[80%] p-6 space-y-4 md:space-y-6 sm:p-8 shadow-xl bg-white rounded-lg dark:border dark:bg-gray-800 dark:border-gray-700">
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label

@@ -38,6 +38,7 @@ export default function RegisterForm() {
 
       setIsLoading(false);
       toast(res.data.message, { type: "success", theme: "colored" });
+      handleModal("open", <LoginForm />);
     } catch (error) {
       setIsLoading(false);
       toast(error.response.data.message, { type: "error", theme: "colored" });
@@ -52,7 +53,7 @@ export default function RegisterForm() {
             <AppRegistrationIcon className="text-5xl" />
             Register akun Portal
           </div>
-          <div className="w-full lg:w-[80%] md:w-[80%] sm:w-[80%] p-6 space-y-4 md:space-y-6 sm:p-8 bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full lg:w-[80%] md:w-[80%] sm:w-[80%] p-6 space-y-4 md:space-y-6 sm:p-8 shadow-xl bg-white rounded-lg dark:border dark:bg-gray-800 dark:border-gray-700">
             <form
               className="w-full space-y-4 md:space-y-6"
               onSubmit={handleSubmit}

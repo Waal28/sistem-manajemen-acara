@@ -1,6 +1,7 @@
 import { handleResponse } from "@/app/api/route";
 import HttpError from "@/config/error";
 import MahasiswaService from "@/service/mahasiswa";
+import { cookies } from "next/headers";
 
 export default class MahasiswaController {
   static async getAll() {
@@ -76,7 +77,15 @@ export default class MahasiswaController {
 
     try {
       const result = await MahasiswaService.login(body);
-
+      // Mendapatkan waktu saat ini
+      const currentTime = new Date();
+      // Menambahkan 1 hari ke waktu saat ini
+      const expirationTime = new Date(
+        currentTime.getTime() + 24 * 60 * 60 * 1000
+      );
+      cookies().set("token", result, {
+        expires: expirationTime,
+      });
       return handleResponse(200, "Login Berhasil", result);
     } catch (error) {
       return handleResponse(error.statusCode, error.message);

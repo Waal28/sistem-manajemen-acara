@@ -6,12 +6,22 @@ import Footer from "./Footer";
 import { useDarkMode } from "@/context/DarkModeContext";
 import TransitionsModal from "./TransitionsModal";
 import staticData from "@/staticData";
+import { useAppState } from "@/context/AppStateContext";
 
-export default function Layout({ children }) {
+export default function LayoutPortal(props) {
+  const { children, userLogin } = props;
   const { navbarMenu, navSettings } = staticData;
   const { darkMode } = useDarkMode();
+  const { handleIsLogin } = useAppState();
   const isDarkMode = darkMode ? "dark" : "";
 
+  React.useEffect(() => {
+    if (userLogin) {
+      handleIsLogin("portal", userLogin);
+    }
+
+    // eslint-disable-next-line
+  }, [userLogin]);
   return (
     <div className={isDarkMode}>
       <div className="bg-white dark:bg-custom-tertiary">
@@ -24,6 +34,7 @@ export default function Layout({ children }) {
     </div>
   );
 }
-Layout.propTypes = {
+LayoutPortal.propTypes = {
   children: PropTypes.node,
+  userLogin: PropTypes.object,
 };

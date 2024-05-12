@@ -17,10 +17,13 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import SwitchDarkMode from "./SwitchDarkMode";
 import staticData from "@/staticData";
+import { useAppState } from "@/context/AppStateContext";
+import Cookies from "js-cookie";
+import CardProfile from "./portal/profile/CardProfile";
 
 // Fungsi untuk menambahkan efek naik ketika digulir
 function ElevationScroll(props) {
@@ -44,10 +47,11 @@ ElevationScroll.propTypes = {
 // Komponen Navbar
 export default function Navbar({ pages, settings, children }) {
   const pathname = usePathname();
+  const { userLogin, handleIsLogin, handleModal } = useAppState();
+  const router = useRouter();
   const { logo, fakultas, universitas } = staticData;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
   // Handler untuk membuka menu navigasi
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -68,6 +72,18 @@ export default function Navbar({ pages, settings, children }) {
     setAnchorElUser(null);
   };
 
+  // Handler untuk menu navigasi
+  const handleNavigate = (route) => {
+    if (route === "/logout") {
+      Cookies.remove("token");
+      handleIsLogin("portal", { isLogin: false });
+      router.push("/");
+    } else if (route === "/profile") {
+      handleModal("open", <CardProfile />);
+    } else {
+      router.push(route);
+    }
+  };
   return (
     <>
       <CssBaseline />
@@ -89,7 +105,7 @@ export default function Navbar({ pages, settings, children }) {
             {/* Nama Fakultas */}
             <Box sx={{ display: { xs: "none", md: "block" }, mr: 5 }}>
               <p className="text-xs tracking-wider font-medium text-white">
-                Portal Informasi Acara & Seminar
+                Portal Informasi Acara
               </p>
               <Link
                 href="/"
@@ -161,7 +177,7 @@ export default function Navbar({ pages, settings, children }) {
               </Box>
               <Box sx={{ display: { xs: "block", md: "none" } }}>
                 <p className="text-xs tracking-wider font-medium text-white">
-                  Portal Informasi Acara & Seminar
+                  Portal Informasi Acara
                 </p>
                 <Link
                   href="/"
@@ -194,22 +210,27 @@ export default function Navbar({ pages, settings, children }) {
             {/* Tombol Dark Mode dan Avatar Pengguna */}
             <Box sx={{ flexGrow: 0 }}>
               <Stack direction="row">
-                <Box
-                  sx={{
-                    display: { xs: "none", md: "block" },
-                  }}
-                >
+                {userLogin.portal.isLogin ? (
+                  <>
+                    <Box
+                      sx={{
+                        display: { xs: "none", md: "block" },
+                      }}
+                    >
+                      <SwitchDarkMode />
+                    </Box>
+                    <Tooltip title="Menu Pengguna">
+                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png"
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  </>
+                ) : (
                   <SwitchDarkMode />
-                </Box>
-
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png"
-                    />
-                  </IconButton>
-                </Tooltip>
+                )}
               </Stack>
 
               {/* Menu Pengguna */}
@@ -228,12 +249,12 @@ export default function Navbar({ pages, settings, children }) {
                 </MenuItem>
                 {settings.map((setting) => (
                   <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                    <Link
-                      href={setting.link}
+                    <button
+                      onClick={() => handleNavigate(setting.link)}
                       className="text-custom-secondary text-center"
                     >
                       {setting.name}
-                    </Link>
+                    </button>
                   </MenuItem>
                 ))}
               </Menu>
