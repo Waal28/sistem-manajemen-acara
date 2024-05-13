@@ -22,12 +22,12 @@ export default function LayoutPortal(props) {
 
   async function checkLogin() {
     if (cookieToken) {
+      handleIsLogin("portal", true);
       try {
         const decode = await verifyToken(cookieToken);
         if (decode) {
           const res = await axios.get(`/api/mahasiswa/${decode.data.id}`);
           const data = res.data.data;
-          handleIsLogin("portal", true);
           handleSetUserLogin("portal", data);
         }
       } catch (error) {

@@ -27,7 +27,7 @@ Visible.propTypes = {
 };
 
 export default function LoginForm() {
-  const { handleModal, userLogin, handleIsLogin } = useAppState();
+  const { handleModal } = useAppState();
   const [showPassword, setShowPassword] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [formState, setFormState] = React.useState({
@@ -52,8 +52,9 @@ export default function LoginForm() {
       setIsLoading(false);
       toast(res.data.message, { type: "success", theme: "colored" });
       handleModal("close");
-      handleIsLogin("portal", userLogin);
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     } catch (error) {
       setIsLoading(false);
       toast(error.response.data.message, { type: "error", theme: "colored" });

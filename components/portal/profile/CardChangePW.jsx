@@ -26,7 +26,7 @@ Visible.propTypes = {
   setShowPassword: PropTypes.func,
 };
 
-export default function CardChangePW() {
+export default function CardChangePW({ handleClose }) {
   const { userLogin } = useAppState();
   const router = useRouter();
   const [showPassword, setShowPassword] = React.useState(false);
@@ -56,9 +56,13 @@ export default function CardChangePW() {
         type: "success",
         theme: "colored",
       });
+      handleClose("changePassword");
       Cookies.remove("token");
-      router.push("/");
-      window.location.reload();
+
+      setTimeout(() => {
+        router.push("/");
+        window.location.reload();
+      }, 1500);
     } catch (error) {
       setIsLoading(false);
       toast(error.response.data.message, { type: "error", theme: "colored" });
@@ -144,3 +148,6 @@ export default function CardChangePW() {
     </main>
   );
 }
+CardChangePW.propTypes = {
+  handleClose: PropTypes.func,
+};

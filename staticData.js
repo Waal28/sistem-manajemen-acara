@@ -23,10 +23,6 @@ const staticData = {
       link: "/profile",
     },
     {
-      name: "Acara Saya",
-      link: "/my-events",
-    },
-    {
       name: "Logout",
       link: "/logout",
     },

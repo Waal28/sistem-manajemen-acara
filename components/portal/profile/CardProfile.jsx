@@ -100,7 +100,7 @@ export default function CardProfile() {
               aria-describedby="child-modal-description"
             >
               <div className={isDarkMode + " my-10"}>
-                <CardChangePW />
+                <CardChangePW handleClose={handleClose} />
               </div>
             </Modal>
           </div>

@@ -47,11 +47,12 @@ ElevationScroll.propTypes = {
 // Komponen Navbar
 export default function Navbar({ pages, settings, children }) {
   const pathname = usePathname();
-  const { isLogin, handleIsLogin, handleModal } = useAppState();
   const router = useRouter();
   const { logo, fakultas, universitas } = staticData;
+  const { isLogin, handleIsLogin, handleModal } = useAppState();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
   // Handler untuk membuka menu navigasi
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -74,6 +75,8 @@ export default function Navbar({ pages, settings, children }) {
 
   // Handler untuk menu navigasi
   const handleNavigate = (route) => {
+    handleCloseUserMenu();
+
     if (route === "/logout") {
       Cookies.remove("token");
       handleIsLogin("portal", false);
@@ -248,11 +251,11 @@ export default function Navbar({ pages, settings, children }) {
                   <SwitchDarkMode />
                 </MenuItem>
                 {settings.map((setting) => (
-                  <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                    <button
-                      onClick={() => handleNavigate(setting.link)}
-                      className="text-custom-secondary text-center"
-                    >
+                  <MenuItem
+                    key={setting.name}
+                    onClick={() => handleNavigate(setting.link)}
+                  >
+                    <button className="text-custom-secondary text-center">
                       {setting.name}
                     </button>
                   </MenuItem>
