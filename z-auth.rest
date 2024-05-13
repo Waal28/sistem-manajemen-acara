@@ -17,6 +17,6 @@ POST http://localhost:3000/api/auth/portal-login
 Content-Type: application/json
 
 {
-    "npm": "203510358",
-    "password": "12345"
+    "npm": "203510999",
+    "password": "123456"
 }

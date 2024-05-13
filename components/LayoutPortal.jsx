@@ -1,19 +1,19 @@
 "use client";
 import React from "react";
 import PropTypes from "prop-types";
-import jwt from "jsonwebtoken";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { useDarkMode } from "@/context/DarkModeContext";
 import TransitionsModal from "./TransitionsModal";
 import staticData from "@/staticData";
+import { useDarkMode } from "@/context/DarkModeContext";
 import { useAppState } from "@/context/AppStateContext";
-import Cookies from "js-cookie";
+import { verifyToken } from "@/middleware/verifyToken.mjs";
 
 export default function LayoutPortal(props) {
-  const { children, SECRET_KEY } = props;
+  const { children } = props;
   const { navbarMenu, navSettings } = staticData;
   const { darkMode } = useDarkMode();
   const { handleIsLogin, handleSetUserLogin } = useAppState();
@@ -22,13 +22,16 @@ export default function LayoutPortal(props) {
 
   async function checkLogin() {
     if (cookieToken) {
-      const decode = verifyToken(cookieToken, SECRET_KEY);
-      if (decode) {
-        console.log("DECODE ERRRRRRRRR: ", decode);
-        const res = await axios.get(`/api/mahasiswa/${decode.id}`);
-        const data = res.data.data;
-        handleIsLogin("portal", true);
-        handleSetUserLogin("portal", data);
+      try {
+        const decode = await verifyToken(cookieToken);
+        if (decode) {
+          const res = await axios.get(`/api/mahasiswa/${decode.data.id}`);
+          const data = res.data.data;
+          handleIsLogin("portal", true);
+          handleSetUserLogin("portal", data);
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
   }
@@ -52,18 +55,4 @@ export default function LayoutPortal(props) {
 }
 LayoutPortal.propTypes = {
   children: PropTypes.node,
-  SECRET_KEY: PropTypes.string,
 };
-
-function verifyToken(token, secret_key) {
-  if (!token) {
-    return false;
-  }
-  try {
-    const verifyToken = jwt.verify(token, secret_key);
-    return verifyToken;
-  } catch (error) {
-    console.log("INI ERRORRR", error);
-    return error;
-  }
-}

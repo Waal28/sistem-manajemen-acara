@@ -1,9 +1,10 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import * as jose from "jose";
 
 import CrudConfig from "@/config/crud.mjs";
 import HttpError from "@/config/error";
-import { SECRET_KEY } from "@/config/env.mjs";
+
+const { NEXT_PUBLIC_SECRET_KEY } = process.env;
 
 export default class MahasiswaService {
   static async getAll() {
@@ -74,16 +75,26 @@ export default class MahasiswaService {
       throw new HttpError("NPM tidak ditemukan", 400);
     }
 
-    const payload = {
-      id: data[0].id,
-    };
     const isPasswordValid = await bcrypt.compare(password, data[0].password);
     if (!isPasswordValid) {
       throw new HttpError("Password tidak sesuai", 400);
     }
 
-    const token = jwt.sign(payload, SECRET_KEY);
-    return token;
+    const alg = "HS256";
+    const secret = new TextEncoder().encode(NEXT_PUBLIC_SECRET_KEY);
+    const exp = 3600; // 1 jam
+    const payload = {
+      id: data[0].id,
+    };
+    const token = await new jose.SignJWT(payload)
+      .setProtectedHeader({ alg })
+      .setIssuedAt()
+      .setIssuer("urn:example:issuer")
+      .setAudience("urn:example:audience")
+      .setExpirationTime(`${exp}s`)
+      .sign(secret);
+
+    return { token, exp };
   }
   static async ubahPassword(body, id) {
     const { oldPassword, newPassword } = body;

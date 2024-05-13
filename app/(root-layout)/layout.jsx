@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 
 import LayoutPortal from "@/components/LayoutPortal";
 
-import { SECRET_KEY } from "@/config/env.mjs";
-
 export const metadata = {
   link: {
     rel: "stylesheet",
@@ -14,7 +12,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  return <LayoutPortal SECRET_KEY={SECRET_KEY}>{children}</LayoutPortal>;
+  return <LayoutPortal>{children}</LayoutPortal>;
 }
 
 RootLayout.propTypes = {

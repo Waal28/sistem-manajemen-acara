@@ -77,16 +77,11 @@ export default class MahasiswaController {
 
     try {
       const result = await MahasiswaService.login(body);
-      // Mendapatkan waktu saat ini
-      const currentTime = new Date();
-      // Menambahkan 1 hari ke waktu saat ini
-      const expirationTime = new Date(
-        currentTime.getTime() + 24 * 60 * 60 * 1000
-      );
-      cookies().set("token", result, {
-        expires: expirationTime,
+
+      cookies().set("token", result.token, {
+        maxAge: result.exp,
       });
-      return handleResponse(200, "Login Berhasil", result);
+      return handleResponse(200, "Login Berhasil", result.token);
     } catch (error) {
       return handleResponse(error.statusCode, error.message);
     }
