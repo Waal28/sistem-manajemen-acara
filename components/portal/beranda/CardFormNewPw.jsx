@@ -2,38 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useAppState } from "@/context/AppStateContext";
 import { toast } from "react-toastify";
 import Spinner from "../../Spinner";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+import { Visible } from "@/components/LoginForm";
 
-export const Visible = ({ showPassword, setShowPassword }) => {
-  return (
-    <div className="absolute top-[20%] right-3 cursor-pointer dark:text-grey-200 text-gray-400">
-      {showPassword ? (
-        <VisibilityOffIcon onClick={() => setShowPassword(!showPassword)} />
-      ) : (
-        <VisibilityIcon onClick={() => setShowPassword(!showPassword)} />
-      )}
-    </div>
-  );
-};
-Visible.propTypes = {
-  showPassword: PropTypes.bool,
-  setShowPassword: PropTypes.func,
-};
-
-export default function CardChangePW({ handleClose }) {
-  const { userLogin } = useAppState();
-  const router = useRouter();
-  const [showPassword, setShowPassword] = React.useState(false);
+export default function CardFormNewPw({ handleSetModal }) {
   const [isLoading, setIsLoading] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
   const [formState, setFormState] = React.useState({
-    oldPassword: "",
     newPassword: "",
+    confirmPassword: "",
   });
   function handleChange(e) {
     setFormState({
@@ -47,8 +25,8 @@ export default function CardChangePW({ handleClose }) {
     setIsLoading(true);
 
     try {
-      const res = await axios.put(
-        `/api/mahasiswa/${userLogin.portal.id}/change-password`,
+      const res = await axios.post(
+        `/api/mahasiswa/change-password/otp/new-password`,
         formState
       );
       setIsLoading(false);
@@ -56,54 +34,60 @@ export default function CardChangePW({ handleClose }) {
         type: "success",
         theme: "colored",
       });
-      handleClose("changePassword");
-      Cookies.remove("token");
-
-      setTimeout(() => {
-        router.push("/");
-        window.location.reload();
-      }, 1500);
+      handleSetModal("close");
     } catch (error) {
       setIsLoading(false);
       toast(error.response.data.message, { type: "error", theme: "colored" });
     }
   }
   return (
-    <main className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl lg:w-[50%] md:w-[60%] sm:w-[80%] w-[90%] max-h-screen overflow-auto">
+    <main className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl lg:w-[40%] md:w-[50%] sm:w-[70%] w-[80%] max-h-screen overflow-auto">
       <div className="w-full mx-auto flex items-center justify-center">
         <div className="w-full bg-gray-200 dark:bg-gray-900 rounded-2xl flex flex-col items-center justify-center p-5 lg:py-10 sm:py-10">
           <div className="flex flex-col items-center mb-6 lg:text-2xl md:text-2xl text-lg font-semibold text-teal-800 dark:text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="lg:w-12 md:w-12 w-10 mb-3"
-              viewBox="0 0 15 15"
+              viewBox="0 0 14 14"
             >
-              <path
+              <g
                 fill="none"
                 stroke="currentColor"
-                d="M12.5 8.5v-1a1 1 0 0 0-1-1h-10a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1m0-4h-4a2 2 0 1 0 0 4h4m0-4a2 2 0 1 1 0 4m-9-6v-3a3 3 0 0 1 6 0v3m2.5 4h1m-3 0h1m-3 0h1"
-              />
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M7 13.5V8.25A1.25 1.25 0 0 1 8.25 7h0A1.25 1.25 0 0 1 9.5 8.25V11h2a2 2 0 0 1 2 2v.5" />
+                <circle cx={1} cy={1} r=".5" />
+                <circle cx={5} cy={1} r=".5" />
+                <circle cx={9} cy={1} r=".5" />
+                <circle cx={1} cy="4.5" r=".5" />
+                <circle cx={5} cy="4.5" r=".5" />
+                <circle cx={9} cy="4.5" r=".5" />
+                <circle cx={1} cy={8} r=".5" />
+                <path d="M5 8.5a.5.5 0 0 1 0-1Z" />
+              </g>
             </svg>
-            Ubah Password
+            Password Baru
+            <p className="lg:text-sm text-xs mt-2">Masukkan password baru</p>
           </div>
-          <div className="w-full lg:w-[70%] md:w-[80%] p-6 space-y-4 md:space-y-6 sm:p-8 shadow-xl bg-white rounded-lg dark:border dark:bg-gray-800 dark:border-gray-700">
+          <div className="lg:w-[80%] md:w-[90%] w-[90%] p-6 space-y-4 md:space-y-6 sm:p-8 shadow-xl bg-white rounded-lg dark:border dark:bg-gray-800 dark:border-gray-700">
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
-                  htmlFor="oldPassword"
+                  htmlFor="newPassword"
                   className="block mb-2 lg:text-sm md:text-sm sm:text-sm text-xs font-medium text-teal-800 dark:text-white"
                 >
-                  Password Lama
+                  Password Baru
                 </label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
-                    name="oldPassword"
-                    id="oldPassword"
-                    value={formState.oldPassword}
+                    name="newPassword"
+                    id="newPassword"
+                    value={formState.newPassword}
                     onChange={handleChange}
                     className="bg-gray-50 border border-gray-300 text-teal-800 lg:text-sm md:text-sm sm:text-sm text-xs rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="••••••••"
+                    placeholder="slamet@gmail.com"
                     required
                   />
                   <Visible
@@ -114,22 +98,23 @@ export default function CardChangePW({ handleClose }) {
               </div>
               <div>
                 <label
-                  htmlFor="newPassword"
+                  htmlFor="confirmPassword"
                   className="block mb-2 lg:text-sm md:text-sm sm:text-sm text-xs font-medium text-teal-800 dark:text-white"
                 >
-                  Password Baru
+                  Konfirmasi Password
                 </label>
                 <input
                   type={showPassword ? "text" : "password"}
-                  name="newPassword"
-                  id="newPassword"
-                  value={formState.newPassword}
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  value={formState.confirmPassword}
                   onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-teal-800 lg:text-sm md:text-sm sm:text-sm text-xs rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="••••••••"
+                  placeholder="slamet@gmail.com"
                   required
                 />
               </div>
+
               <div className="pt-2">
                 <button
                   type="submit"
@@ -138,7 +123,7 @@ export default function CardChangePW({ handleClose }) {
                   {isLoading ? (
                     <Spinner className="w-5 h-5 text-white fill-teal-600" />
                   ) : (
-                    "Ubah"
+                    "Simpan"
                   )}
                 </button>
               </div>
@@ -149,6 +134,6 @@ export default function CardChangePW({ handleClose }) {
     </main>
   );
 }
-CardChangePW.propTypes = {
-  handleClose: PropTypes.func,
+CardFormNewPw.propTypes = {
+  handleSetModal: PropTypes.func,
 };

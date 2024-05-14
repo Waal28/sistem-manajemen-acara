@@ -9,6 +9,9 @@ import { useAppState } from "@/context/AppStateContext";
 import RegisterForm from "./RegisterForm";
 import { toast } from "react-toastify";
 import Spinner from "./Spinner";
+import { Modal } from "@mui/material";
+import CardForgetPw from "./portal/beranda/CardForgetPw";
+import { useDarkMode } from "@/context/DarkModeContext";
 
 export const Visible = ({ showPassword, setShowPassword }) => {
   return (
@@ -28,7 +31,13 @@ Visible.propTypes = {
 
 export default function LoginForm() {
   const { handleModal } = useAppState();
+  const { darkMode } = useDarkMode();
+  const isDarkMode = darkMode ? "dark" : "";
   const [showPassword, setShowPassword] = React.useState(false);
+  const [modal, setmodal] = React.useState({
+    open: false,
+    children: <div></div>,
+  });
   const [isLoading, setIsLoading] = React.useState(false);
   const [formState, setFormState] = React.useState({
     npm: "",
@@ -40,9 +49,20 @@ export default function LoginForm() {
       [e.target.name]: e.target.value,
     });
   }
+  function handleSetModal(opt, children) {
+    switch (opt) {
+      case "open":
+        setmodal({ open: true, children: children });
+        break;
+      case "close":
+        setmodal({ ...modal, open: false });
+        break;
+    }
+  }
   function handleClickRegister() {
     handleModal("open", <RegisterForm />);
   }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
@@ -112,58 +132,70 @@ export default function LoginForm() {
                   />
                 </div>
               </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-teal-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-teal-600 dark:ring-offset-gray-800"
-                    />
-                  </div>
-                  <div className="ml-3 lg:text-sm md:text-sm text-xs">
-                    <label
-                      htmlFor="remember"
-                      className="text-gray-500 dark:text-gray-300"
-                    >
-                      Ingat saya
-                    </label>
-                  </div>
-                </div>
-                <a
-                  href="#"
-                  className="lg:text-sm md:text-sm text-xs font-medium text-teal-600 hover:underline dark:text-white"
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="w-full text-white bg-teal-600 hover:bg-teal-700 focus:ring-2 focus:outline-none focus:ring-teal-700 font-medium rounded-lg lg:text-sm md:text-sm text-xs px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-300"
                 >
-                  Lupa password?
-                </a>
+                  {isLoading ? (
+                    <Spinner className="w-5 h-5 text-white fill-teal-600" />
+                  ) : (
+                    "Masuk"
+                  )}
+                </button>
               </div>
-              <button
-                type="submit"
-                className="w-full text-white bg-teal-600 hover:bg-teal-700 focus:ring-2 focus:outline-none focus:ring-teal-700 font-medium rounded-lg lg:text-sm md:text-sm text-xs px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-300"
-              >
-                {isLoading ? (
-                  <Spinner className="w-5 h-5 text-white fill-teal-600" />
-                ) : (
-                  "Masuk"
-                )}
-              </button>
             </form>
-
-            <p className="lg:text-sm md:text-sm text-xs font-light text-gray-500 dark:text-gray-400">
-              Belum punya akun?{" "}
+            <div className="flex lg:flex-row flex-col-reverse lg:items-start items-center lg:justify-between justify-start gap-3">
+              <p className="lg:text-sm md:text-sm text-xs font-light text-gray-500 dark:text-gray-400">
+                Belum punya akun?{" "}
+                <button
+                  type="button"
+                  className="font-medium text-teal-600 hover:underline dark:text-white"
+                  onClick={handleClickRegister}
+                >
+                  Daftar
+                </button>
+              </p>
               <button
-                type="button"
-                className="font-medium text-teal-600 hover:underline dark:text-white"
-                onClick={handleClickRegister}
+                className="lg:text-sm md:text-sm text-xs font-medium text-teal-600 hover:underline dark:text-white"
+                onClick={() =>
+                  handleSetModal(
+                    "open",
+                    <CardForgetPw handleSetModal={handleSetModal} />
+                  )
+                }
               >
-                Daftar
+                Lupa password?
               </button>
-            </p>
+            </div>
           </div>
         </div>
       </div>
+      {/* Modal */}
+      <ModalForm
+        modal={modal}
+        handleSetModal={handleSetModal}
+        isDarkMode={isDarkMode}
+      />
     </main>
   );
 }
+
+function ModalForm(porps) {
+  const { modal, handleSetModal, isDarkMode } = porps;
+  return (
+    <Modal
+      open={modal.open}
+      onClose={() => handleSetModal("close")}
+      aria-labelledby="child-modal-title"
+      aria-describedby="child-modal-description"
+    >
+      <div className={isDarkMode + " my-10"}>{modal.children}</div>
+    </Modal>
+  );
+}
+ModalForm.propTypes = {
+  modal: PropTypes.object,
+  handleSetModal: PropTypes.func,
+  isDarkMode: PropTypes.string,
+};
